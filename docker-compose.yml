@@ -6,4 +6,4 @@ services:
     my-webapp:
         build: .
         ports: 
-            - "9090:8080"
+            - "9090:8081"
