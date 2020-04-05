@@ -31,10 +31,9 @@ app.post('/', (req, res) => {{
     console.log("input:", req.body);
     var x = parseInt(req.body.x);
     var y = parseInt(req.body.y);
-    if (x > y) {
+    var key =  x+"-"+y;
+    if (y > x) {
         var key = y+"-"+x
-    } else {
-        var key = x+"-"+y;
     }
     console.log("key:", key );
     client.get(key, (err, gcd_result) => {
