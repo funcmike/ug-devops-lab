@@ -41,7 +41,7 @@ app.post('/', (req, res) => {{
             var result = gcd(x,y);
             console.log("calculated result:", result);
             client.set(key, result);
-            res.send(toString(result));    
+            res.send(result.toString());    
         } else {
             console.log("cached result:", gcd_result);
             res.send(gcd_result);
