@@ -33,7 +33,7 @@ app.post('/', (req, res) => {{
     var y = parseInt(req.body.y);
     var key =  x+"-"+y;
     if (y > x) {
-        var key = y+"-"+x
+        key = y+"-"+x
     }
     console.log("key:", key );
     client.get(key, (err, gcd_result) => {
