@@ -38,10 +38,10 @@ app.post('/', (req, res) => {{
     console.log("key:", key );
     client.get(key, (err, gcd_result) => {
         if (err || !gcd_result ) {
-            var result = toString(gcd(x,y));
+            var result = gcd(x,y);
             console.log("calculated result:", result);
             client.set(key, result);
-            res.send(result);    
+            res.send(toString(result));    
         } else {
             console.log("cached result:", gcd_result);
             res.send(gcd_result);
