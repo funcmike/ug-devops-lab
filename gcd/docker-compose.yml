@@ -3,8 +3,25 @@ version: '3'
 services: 
     redis-server:
         image: 'redis'
+    postgres-server:
+        image: 'postgres'
+        environment:
+            - POSTGRES_PASSWORD=mysecretpassword
     webapp:
         build: .
+        environment:
+            -  REDIS_HOST=redis-server
+            -  REDIS_PORT=6379
+            -  PGHOST=postgres-server
+            -  PGPORT=5432
+            -  PGDB=postgres
+            -  PGPASS=mysecretpassword
+            -  PGUSER=postgres
         ports: 
             - "9090:8080"
         restart: always
+
+networks:
+    default:
+        external:
+            name: js
