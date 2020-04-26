@@ -1,0 +1,49 @@
+version: '3'
+
+services: 
+    redis:
+        image: 'redis'
+
+    postgres:
+        image: 'postgres'
+        environment:
+            - POSTGRES_PASSWORD=${PGPASS}
+    
+    revproxy:
+        build:
+            dockerfile: Dockerfile
+            context: ./revproxy
+        ports: 
+            - "8080:80"
+        restart: always
+        depends_on:
+            - frontend
+            - backend
+
+    frontend:
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./frontend
+        volumes:
+            - /opt/app/node_modules
+            - ./frontend:/opt/app
+        tty: true
+        
+    backend:
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./backend
+        environment:
+            -  REDIS_HOST=${REDIS_HOST}
+            -  REDIS_PORT=${REDIS_PORT}
+            -  PGHOST=${PGHOST}
+            -  PGPORT=${PGPORT}
+            -  PGDB=${PGDB}
+            -  PGUSER=${PGUSER}
+            -  PGPASS=${PGPASS}
+        volumes:
+            - /opt/app/node_modules
+            - ./backend:/opt/app
+        ports: 
+            - "5000:5000"
+        restart: always
