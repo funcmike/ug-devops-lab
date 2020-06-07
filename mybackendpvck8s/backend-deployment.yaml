@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-backend-deployment
+  labels:
+    app: my-backend
+    type: backend
+  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-backend
+      type: backend
+  template:
+    metadata:
+      labels:
+        app: my-backend
+        type: backend
+    spec:
+      containers:
+      - name: my-backend-container
+        image: crismike/mybackendpvck8s
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+          - name: PGHOST
+            valueFrom:
+              configMapKeyRef:
+                name: myapp-config
+                key: PGHOST
+          - name: PGPORT
+            valueFrom:
+              configMapKeyRef:
+                name: myapp-config
+                key: PGPORT
+          - name: PGUSER
+            valueFrom:
+              configMapKeyRef:
+                name: myapp-config
+                key: PGUSER
+          - name: PGPASS
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: PGPASSWORD
+          - name: PGDB
+            valueFrom:
+              configMapKeyRef:
+                name: myapp-config
+                key: PGDB
+          - name: REDISHOST
+            valueFrom:
+              configMapKeyRef:
+                name: myapp-config
+                key: REDISHOST
+          - name: REDISPORT
+            valueFrom:
+              configMapKeyRef:
+                name: myapp-config
+                key: REDISPORT
