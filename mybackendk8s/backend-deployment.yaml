@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-backend-deployment
+  labels:
+    app: my-backend
+    type: backend
+  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-backend
+      type: backend
+  template:
+    metadata:
+      labels:
+        app: my-backend
+        type: backend
+    spec:
+      containers:
+      - name: my-backend-container
+        image: crismike/mybackendk8s
+        ports:
+        - containerPort: 5000
