@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-frontend-deployment
+  labels:
+    app: my-frontend
+    type: frontend
+  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-frontend
+      type: frontend
+  template:
+    metadata:
+      labels:
+        app: my-frontend
+        type: frontend
+    spec:
+      containers:
+      - name: my-frontend-container
+        image: crismike/my-frontend-final
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80

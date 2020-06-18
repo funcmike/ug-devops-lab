@@ -1,0 +1,16 @@
+{
+    "description": "Multi container simple app",
+    "version": "1.0.0",
+    "dependencies": {
+        "express": "*",
+        "redis": "*",
+        "pg": "*",
+        "body-parser": "*",
+        "nodemon": "*",
+        "cors": "*"
+    },
+    "scripts": {
+        "dev": "nodemon",
+        "start": "node index.js"
+    }
+}
